@@ -1,3 +1,4 @@
+
 # Project Management System
 
 ## Overview
@@ -169,3 +170,7 @@ Tables:
 ## Author
 
 Venmathi P
+=======
+# project_management_system
+Project Management System is a web-based application that allows users to create, manage, update, and track projects and tasks. Built with React.js, Node.js, Express.js, and MySQL, it provides authentication, dashboard statistics, task tracking, and project management features.
+>>>>>>> 9b300d1dd838f5804db9df9e0f74223c369f01d1
