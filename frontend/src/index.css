@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── deep dark base ── */
+  --bg:        #0a0b10;
+  --surface:   #14161f;
+  --surface2:  #1b1e2b;
+  --border:    #2a2e40;
+
+  /* ── bright accents ── */
+  --indigo:    #7c5cff;
+  --indigo-h:  #9580ff;
+  --indigo-dim:#3d2f99;
+  --cyan:      #22d3ee;
+  --pink:      #f43f5e;
+  --green:     #2dd4bf;
+  --amber:     #fbbf24;
+  --red:       #ff5470;
+
+  --text:      #eef0f6;
+  --muted:     #7a7f95;
+  --radius:    10px;
+  --shadow:    0 4px 24px rgba(0,0,0,.5);
+}
+
+html, body, #root {
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(124,92,255,.10), transparent 45%),
+    radial-gradient(circle at 90% 20%, rgba(34,211,238,.08), transparent 40%);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Neutralize Bootstrap's .container/.card/.bg-* light defaults
+   wherever they're still used as layout helpers in JSX, so they
+   inherit the dark theme instead of painting white panels. */
+.container, .container-fluid {
+  background: transparent;
+  color: var(--text);
+}
+
+/* ── typography ── */
+h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+
+/* ── inputs ── */
+input, textarea, select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(34,211,238,.15);
+}
+input::placeholder, textarea::placeholder { color: var(--muted); }
+select option { background: var(--surface2); }
+textarea { resize: vertical; min-height: 80px; }
+
+/* ── buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px;
+  border: none; border-radius: var(--radius);
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .15s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--indigo), var(--cyan));
+  color: #fff;
+}
+.btn-primary:hover { filter: brightness(1.12); box-shadow: 0 0 16px rgba(124,92,255,.4); }
+
+.btn-success { background: var(--green); color: #06241f; }
+.btn-success:hover { filter: brightness(1.1); box-shadow: 0 0 16px rgba(45,212,191,.4); }
+
+.btn-danger  { background: transparent; color: var(--red); border: 1px solid var(--red); }
+.btn-danger:hover  { background: var(--red); color: #fff; }
+
+/* ghost button: used for secondary actions on dark surfaces.
+   Given a visible border + light text so it never blends into the bg. */
+.btn-ghost {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  background: var(--pink);
+  color: #fff;
+  border-color: var(--pink);
+}
+
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+
+/* ── cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ── form group ── */
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group label { font-size: 12px; font-weight: 600; color: var(--cyan); text-transform: uppercase; letter-spacing: .05em; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ── badges ── */
+.badge {
+  display: inline-block;
+  padding: 2px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+}
+.badge-pending    { background: rgba(251,191,36,.18); color: var(--amber); }
+.badge-progress   { background: rgba(34,211,238,.18);  color: var(--cyan); }
+.badge-completed  { background: rgba(45,212,191,.18);  color: var(--green); }
+.badge-high       { background: rgba(255,84,112,.18);  color: var(--red); }
+.badge-medium     { background: rgba(251,191,36,.18);  color: var(--amber); }
+.badge-low        { background: rgba(122,127,149,.18); color: var(--muted); }
+
+/* ── page shell ── */
+.page { max-width: 920px; margin: 0 auto; padding: 32px 20px; }
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.page-title { font-size: 22px; }
+
+/* ── stat card ── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 14px; margin-bottom: 32px; }
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--indigo), var(--cyan));
+}
+.stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 8px; }
+.stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: var(--text); line-height: 1; }
+.stat-accent { color: var(--indigo-h); }
+.stat-green  { color: var(--green); }
+.stat-amber  { color: var(--amber); }
+.stat-red    { color: var(--red); }
+
+/* ── empty state ── */
+.empty { text-align: center; padding: 56px 20px; color: var(--muted); }
+.empty-icon { font-size: 40px; margin-bottom: 12px; opacity: .6; }
+.empty p { font-size: 14px; }
+
+/* ── divider ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+/* ── scroll list ── */
+.item-list { display: flex; flex-direction: column; gap: 12px; }
+
+/* ── auth layout ── */
+.auth-wrap {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.auth-box { width: 100%; max-width: 400px; }
+.auth-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 700;
+  background: linear-gradient(135deg, var(--indigo-h), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.auth-logo span { -webkit-text-fill-color: var(--cyan); font-size: 20px; }
+.auth-tagline { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+.auth-footer { margin-top: 20px; text-align: center; color: var(--muted); font-size: 13px; }
+.auth-footer a { color: var(--cyan); text-decoration: none; font-weight: 600; }
+.auth-footer a:hover { color: var(--indigo-h); }
+
+/* ── error message ── */
+.error-msg {
+  background: rgba(255,84,112,.12); border: 1px solid rgba(255,84,112,.35);
+  color: var(--red); border-radius: var(--radius);
+  padding: 10px 14px; font-size: 13px; margin-bottom: 16px;
+}
+
+/* ── section header ── */
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.section-title  { font-size: 15px; font-weight: 600; color: var(--text); }
+.section-count  { font-size: 12px; color: var(--muted); }
+
+/* ── project / task item ── */
+.item-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+  transition: border-color .15s, transform .15s;
+}
+.item-card:hover { border-color: var(--indigo); transform: translateY(-1px); }
+.item-card-body { flex: 1; min-width: 0; }
+.item-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.item-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.item-meta-text { font-size: 12px; color: var(--muted); }
+
+/* ── add-form panel ── */
+.add-panel {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 28px;
+}
+.add-panel-title { font-size: 14px; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 18px; }
